@@ -47,6 +47,24 @@ app.post('/scream', (req, res) => {
 		});
 });
 
+//TODO: Add Helper functions to be moved to another file later
+const isEmail = email => {
+	const regEx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+	if (email.match(regEx)) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+const isEmpty = entry => {
+	if (entry.trim() === '') {
+		return true;
+	} else {
+		return false;
+	}
+};
+
 //Create User
 app.post('/signup', (req, res) => {
 	const newUser = {
@@ -56,7 +74,22 @@ app.post('/signup', (req, res) => {
 		handle: req.body.handle
 	};
 
+	let errors = {};
+
+	if (isEmpty(newUser.email)) {
+		errors.email = 'Must not be empty';
+	} else if (!isEmail(newUser.email)) {
+		errors.email = 'Must be a valid email address';
+	}
+
+	if (isEmpty(newUser.password)) errors.password = 'Must not be empty';
+	if (newUser.password !== newUser.confirmPassword)
+		errors.confirmPassword = 'Passwords must match';
+	if (isEmpty(newUser.handle)) errors.handle = 'Must not be empty';
+	if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
 	// TODO: validate data
+	let token, userId;
 	db.doc(`/users/${newUser.handle}`)
 		.get()
 		.then(doc => {
@@ -74,9 +107,20 @@ app.post('/signup', (req, res) => {
 			}
 		})
 		.then(data => {
+			userId = data.user.uid;
 			return data.user.getIdToken();
 		})
-		.then(token => {
+		.then(idToken => {
+			token = idToken;
+			const userCredentials = {
+				handle: newUser.handle,
+				email: newUser.email,
+				createdAt: new Date().toISOString(),
+				userId
+			};
+			return db.doc(`/users/${newUser.handle}`).set(userCredentials);
+		})
+		.then(() => {
 			return res.status(201).json({ token });
 		})
 		.catch(err => {
@@ -88,22 +132,7 @@ app.post('/signup', (req, res) => {
 			} else {
 				return res.status(500).json({ error: err.code });
 			}
-			return res.status(500).json({ error: err.code });
 		});
 });
-
-// 	firebase
-// 		.auth()
-// 		.createUserWithEmailAndPassword(newUser.email, newUser.password)
-// 		.then(data => {
-// 			return res.status(201).json({
-// 				message: `user ${data.user.uid} signed up successfully`
-// 			});
-// 		})
-// 		.catch(err => {
-// 			console.error(err);
-// 			return res.status(500).json({ error: err.code });
-// 		});
-// });
 
 exports.api = functions.https.onRequest(app);
