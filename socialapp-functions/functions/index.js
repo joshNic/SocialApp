@@ -5,7 +5,13 @@ const FBAuth = require('./middleware/fbAuth');
 const app = express();
 
 const { getAllScreams, postOneScream } = require('./handlers/screams');
-const { signup, login, uploadImage } = require('./handlers/users');
+const {
+	signup,
+	login,
+	uploadImage,
+	getAuthenticatedUser,
+	addUserDetails
+} = require('./handlers/users');
 
 //Get All Screams
 app.get('/screams', getAllScreams);
@@ -17,5 +23,7 @@ app.post('/signup', signup);
 app.post('/login', login);
 //Upload Image
 app.post('/user/image', FBAuth, uploadImage);
+// Add User Details
+app.post('/user', FBAuth, addUserDetails);
 
 exports.api = functions.https.onRequest(app);
