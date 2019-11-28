@@ -20,7 +20,7 @@ exports.validateSignupData = data => {
 
 	if (isEmpty(data.email)) {
 		errors.email = 'Must not be empty';
-	} else if (!isEmail(newUser.email)) {
+	} else if (!isEmail(data.email)) {
 		errors.email = 'Must be a valid email address';
 	}
 
