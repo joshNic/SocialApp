@@ -25,5 +25,7 @@ app.post('/login', login);
 app.post('/user/image', FBAuth, uploadImage);
 // Add User Details
 app.post('/user', FBAuth, addUserDetails);
+// Get signedIn/Authenticated user
+app.get('/user', FBAuth, getAuthenticatedUser);
 
 exports.api = functions.https.onRequest(app);
