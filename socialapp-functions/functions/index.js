@@ -7,7 +7,10 @@ const app = express();
 const {
 	getAllScreams,
 	postOneScream,
-	getScream
+	getScream,
+	commentOnScream,
+	likeScream,
+	unlikeScream
 } = require('./handlers/screams');
 const {
 	signup,
@@ -33,5 +36,11 @@ app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getAuthenticatedUser);
 //Get Single Scream Details
 app.get('/scream/:screamId', getScream);
+//Add Comment to scream
+app.post('/scream/:screamId/comment', FBAuth, commentOnScream);
+//Like A Scream
+app.get('/scream/:screamId/like', FBAuth, likeScream);
+//Unlike A Scream
+app.get('/scream/:screamId/unlike', FBAuth, unlikeScream);
 
 exports.api = functions.https.onRequest(app);
