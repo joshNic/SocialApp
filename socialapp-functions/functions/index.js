@@ -4,7 +4,11 @@ const express = require('express');
 const FBAuth = require('./middleware/fbAuth');
 const app = express();
 
-const { getAllScreams, postOneScream } = require('./handlers/screams');
+const {
+	getAllScreams,
+	postOneScream,
+	getScream
+} = require('./handlers/screams');
 const {
 	signup,
 	login,
@@ -27,5 +31,7 @@ app.post('/user/image', FBAuth, uploadImage);
 app.post('/user', FBAuth, addUserDetails);
 // Get signedIn/Authenticated user
 app.get('/user', FBAuth, getAuthenticatedUser);
+//Get Single Scream Details
+app.get('/scream/:screamId', getScream);
 
 exports.api = functions.https.onRequest(app);
