@@ -18,7 +18,9 @@ const {
 	login,
 	uploadImage,
 	getAuthenticatedUser,
-	addUserDetails
+	addUserDetails,
+	getUserDetails,
+	markNotificationsRead
 } = require('./handlers/users');
 
 //Get All Screams
@@ -45,6 +47,10 @@ app.get('/scream/:screamId/like', FBAuth, likeScream);
 app.get('/scream/:screamId/unlike', FBAuth, unlikeScream);
 //Delete Scream
 app.delete('/scream/:screamId', FBAuth, deleteScream);
+//Get User Details
+app.get('/user/:handle', getUserDetails);
+//Read Notifications
+app.post('/notifications', FBAuth, markNotificationsRead);
 
 exports.api = functions.https.onRequest(app);
 
