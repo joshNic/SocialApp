@@ -4,3 +4,10 @@ body {
 		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
 		'Helvetica Neue', sans-serif;
 }
+.container {
+	margin: 20px auto 0 auto;
+	max-width: 1200px;
+}
+.nav-container {
+	margin: auto;
+}
