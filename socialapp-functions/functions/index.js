@@ -161,3 +161,42 @@ exports.onUserImageChange = functions.firestore
 				});
 		}
 	});
+
+//Notification on scream deleted
+exports.onScreamDelete = functions.firestore
+	.document('/screams/{screamId}')
+	.onDelete((snapshot, context) => {
+		const screamId = context.params.screamId;
+		const batch = db.batch();
+		return db
+			.collection('comments')
+			.where('screamId', '==', screamId)
+			.get()
+			.then(data => {
+				data.forEach(doc => {
+					batch.delete(db.doc(`/comments/${doc.id}`));
+				});
+				return db
+					.collection('likes')
+					.where('screamId', '==', screamId)
+					.get();
+			})
+			.then(data => {
+				data.forEach(doc => {
+					batch.delete(db.doc(`/likes/${doc.id}`));
+				});
+				return db
+					.collection('notifications')
+					.where('screamId', '==', screamId)
+					.get();
+			})
+			.then(data => {
+				data.forEach(doc => {
+					batch.delete(db.doc(`/notifications/${doc.id}`));
+				});
+				return batch.commit();
+			})
+			.catch(err => {
+				console.error(err);
+			});
+	});
