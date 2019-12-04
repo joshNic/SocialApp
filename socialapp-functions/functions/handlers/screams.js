@@ -133,7 +133,7 @@ exports.likeScream = (req, res) => {
 					})
 					.then(() => {
 						screamData.likeCount++;
-						return screamData.update({
+						return screamDocument.update({
 							likeCount: screamData.likeCount
 						});
 					})

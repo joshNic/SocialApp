@@ -4,6 +4,8 @@ const express = require('express');
 const FBAuth = require('./middleware/fbAuth');
 const app = express();
 
+const { db } = require('./utils/admin');
+
 const {
 	getAllScreams,
 	postOneScream,
@@ -65,7 +67,7 @@ exports.createNotificationOnLike = functions.firestore
 				.then(doc => {
 					if (
 						doc.exists &&
-						doc.data().userHandle !== snapshot.date().userHandle
+						doc.data().userHandle !== snapshot.data().userHandle
 					) {
 						return db.doc(`/notifications/${snapshot.id}`).set({
 							createdAt: new Date().toISOString(),
@@ -116,7 +118,7 @@ exports.createNotificationOnComment = functions.firestore
 				.then(doc => {
 					if (
 						doc.exists &&
-						doc.data().userHandle !== snapshot.date().userHandle
+						doc.data().userHandle !== snapshot.data().userHandle
 					) {
 						return db.doc(`/notifications/${snapshot.id}`).set({
 							createdAt: new Date().toISOString(),
@@ -142,8 +144,8 @@ exports.createNotificationOnComment = functions.firestore
 exports.onUserImageChange = functions.firestore
 	.document('/users/{userId}')
 	.onUpdate(change => {
-		console.log(change.before.data());
-		console.log(change.after.data());
+		// console.log(change.before.data());
+		// console.log(change.after.data());
 		if (change.before.data().imageUrl !== change.after.data().imageUrl) {
 			let batch = db.batch();
 			return db
@@ -159,7 +161,7 @@ exports.onUserImageChange = functions.firestore
 					});
 					return batch.commit();
 				});
-		}
+		} else return true;
 	});
 
 //Notification on scream deleted
