@@ -11,7 +11,7 @@ import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
-	...theme
+	...theme.custom
 });
 
 class Login extends Component {
@@ -38,6 +38,7 @@ class Login extends Component {
 			.post('/login', userData)
 			.then(res => {
 				console.log(res.data);
+				localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
 				this.setState({
 					loading: false
 				});
