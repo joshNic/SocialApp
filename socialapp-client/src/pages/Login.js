@@ -26,15 +26,19 @@ class Login extends Component {
 	//   super()
 	//   this.state
 	// }
-	// UNSAFE_componentWillReceiveProps(nextProps) {
-	// 	if (nextProps.UI.errors) {
-	// 		this.setState({ errors: nextProps.UI.errors });
+	UNSAFE_componentWillReceiveProps(nextProps) {
+		if (nextProps.UI.errors) {
+			this.setState({ errors: nextProps.UI.errors });
+		}
+	}
+	// // }
+	// static getDerivedStateFromProps(prevProps, prevState) {
+	// 	console.log('previos props', prevProps);
+	// 	console.log('previos state', prevProps);
+	// 	if (prevProps.UI.errors !== prevState.UI.errors) {
+	// 		return { errors: prevState.errors };
 	// 	}
 	// }
-	// static static getDerivedStateFromProps(prevProps, prevState) {
-	//   if(prevProps.UI.errors !==prevState.UI.errors){
-	//     return {errors:prevProps.UI.errors}
-	//   }
 
 	// }
 	handleSubmit = event => {
