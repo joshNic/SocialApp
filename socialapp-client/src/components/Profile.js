@@ -14,9 +14,11 @@ import CalenderToday from '@material-ui/icons/CalendarToday';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
+import EditProfile from './EditProfile';
 
 const styles = theme => ({
 	...theme.profile
@@ -31,6 +33,9 @@ class Profile extends Component {
 	handleEditPicture = () => {
 		const fileInput = document.getElementById('imageInput');
 		fileInput.click();
+	};
+	handleLogout = () => {
+		this.props.logoutUser();
 	};
 	render() {
 		const {
@@ -117,6 +122,12 @@ class Profile extends Component {
 								Joined {dayjs(createdAt).format('MMM YYYY')}
 							</span>
 						</div>
+						<Tooltip title='Logout' placement='top'>
+							<IconButton onClick={this.handleLogout}>
+								<KeyboardReturn color='primary' />
+							</IconButton>
+						</Tooltip>
+						<EditProfile />
 					</div>
 				</Paper>
 			) : (
