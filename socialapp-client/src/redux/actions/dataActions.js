@@ -38,3 +38,16 @@ export const likeScream = screamId => dispatch => {
 		})
 		.catch(err => console.log(err));
 };
+
+//Unlike a Scream
+export const unLikeScream = screamId => dispatch => {
+	axios
+		.get(`/scream/${screamId}/unlike`)
+		.then(res => {
+			dispatch({
+				type: UNLIKE_SCREAM,
+				payload: res.data
+			});
+		})
+		.catch(err => console.log(err));
+};
