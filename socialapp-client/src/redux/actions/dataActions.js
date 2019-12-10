@@ -1,7 +1,6 @@
 import {
 	LOADING_DATA,
 	SET_SCREAMS,
-	SET_SCREAM,
 	LIKE_SCREAM,
 	UNLIKE_SCREAM
 } from '../types';
