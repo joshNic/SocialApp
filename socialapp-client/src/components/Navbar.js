@@ -6,10 +6,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 import MyButton from '../util/MyButton';
+import PostScream from './PostScream';
 
 // const useStyles = makeStyles(theme => ({
 // 	root: {
@@ -31,9 +31,7 @@ class Navbar extends Component {
 				<Toolbar className='nav-container'>
 					{authenticated ? (
 						<Fragment>
-							<MyButton tip='Post a Scream!'>
-								<AddIcon />
-							</MyButton>
+							<PostScream />
 							<Link to='/'>
 								<MyButton tip='Home'>
 									<HomeIcon />
