@@ -20,6 +20,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 // Redux stuff
 import { connect } from 'react-redux';
 import { getScream, clearErrors } from '../redux/actions/dataActions';
+import LikeButton from './LikeButton';
 
 const styles = theme => ({
 	...theme.custom,
@@ -123,6 +124,7 @@ class ScreamDialog extends Component {
 					<hr className={classes.invisibleSeparator} />
 					<Typography variant='body1'>{body}</Typography>
 
+					<LikeButton screamId={screamId} />
 					<span>{likeCount} likes</span>
 					<MyButton tip='comments'>
 						<ChatIcon color='primary' />
