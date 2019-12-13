@@ -16,6 +16,7 @@ import themeFile from './util/theme';
 import AuthRoute from './util/AuthRoute';
 import store from './redux/store';
 import axios from 'axios';
+import User from './pages/User';
 
 const theme = createMuiTheme(themeFile);
 
@@ -51,6 +52,11 @@ function App() {
 									exact
 									path='/signup'
 									component={Signup}
+								/>
+								<Route
+									exact
+									path='/users/:handle/scream/:screamId'
+									component={User}
 								/>
 								{/* <Route exact path='/login' component={Login} />
 							<Route exact path='/signup' component={Signup} /> */}
