@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
 	...theme.ruler,
+	...theme.custom,
+	...theme.profile,
 	commentImage: {
 		maxWidth: '100%',
 		height: 100,
@@ -31,7 +33,11 @@ class Comments extends Component {
 						<Fragment key={createdAt}>
 							<Grid item sm={12}>
 								<Grid container>
-									<Grid item sm={2}>
+									<Grid
+										item
+										sm={2}
+										style={{ marginLeft: 25 }}
+									>
 										<img
 											src={userImage}
 											alt='comment'
