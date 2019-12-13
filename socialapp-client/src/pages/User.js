@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Scream from '../components/scream/Scream';
-import StaticProfile from '../components/profile/StaticProfile';
+import Scream from '../components/Scream';
 import Grid from '@material-ui/core/Grid';
 
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
+import StaticProfile from '../components/StaticProfile';
 
 class User extends Component {
 	state = {
@@ -30,6 +30,7 @@ class User extends Component {
 			.catch(err => console.log(err));
 	}
 	render() {
+		console.log('this is props', this.props);
 		const { screams, loading } = this.props.data;
 		const screamsMarkup = loading ? (
 			<p>Loading data...</p>
