@@ -5,6 +5,7 @@ import Profile from '../components/Profile';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getScreams } from '../redux/actions/dataActions';
+import ScreamSkeleton from '../components/ScreamSkeleton';
 
 class Home extends Component {
 	componentDidMount() {
@@ -18,7 +19,7 @@ class Home extends Component {
 				<Scream key={scream.screamId} scream={scream} />
 			))
 		) : (
-			<p>Loading</p>
+			<ScreamSkeleton />
 		);
 		return (
 			<Grid container spacing={10}>

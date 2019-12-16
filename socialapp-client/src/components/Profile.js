@@ -19,6 +19,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
 import EditProfile from './EditProfile';
+import ProfileSkeleton from './ProfileSkeleton';
 
 const styles = theme => ({
 	...theme.profile
@@ -156,7 +157,7 @@ class Profile extends Component {
 				</Paper>
 			)
 		) : (
-			<p>loading</p>
+			<ProfileSkeleton />
 		);
 		return profileMarkup;
 	}
