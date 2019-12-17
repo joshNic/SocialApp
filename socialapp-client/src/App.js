@@ -18,6 +18,9 @@ import store from './redux/store';
 import axios from 'axios';
 import User from './pages/User';
 
+axios.defaults.baseURL =
+	'https://us-central1-datacollection-52046.cloudfunctions.net/api';
+
 const theme = createMuiTheme(themeFile);
 
 const token = localStorage.FBIdToken;
