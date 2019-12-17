@@ -1,8 +1,10 @@
 const functions = require('firebase-functions');
 
 const express = require('express');
+const cors = require('cors');
 const FBAuth = require('./middleware/fbAuth');
 const app = express();
+app.use(cors());
 
 const { db } = require('./utils/admin');
 
